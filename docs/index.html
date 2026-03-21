@@ -48,53 +48,15 @@
 
                     <div class="column has-text-centered">
                         <div class="publication-links">
-                            <!-- PDF Link -->
                             <span class="link-block">
-                                <a href="#"
-                                   class="external-link button is-normal is-rounded is-dark">
-                                  <span class="icon">
-                                      <i class="fas fa-file-pdf"></i>
-                                  </span>
-                                  <span>Paper</span>
-                                </a>
-                            </span>
-                            <!-- arXiv Link -->
-                            <span class="link-block">
-                                <a href="#"
-                                   class="external-link button is-normal is-rounded is-dark">
-                                  <span class="icon">
-                                      <i class="ai ai-arxiv"></i>
-                                  </span>
-                                  <span>arXiv</span>
-                                </a>
-                            </span>
-                            <!-- Code Link -->
-                            <span class="link-block">
-                                <a href="#"
-                                   class="external-link button is-normal is-rounded is-dark">
-                                  <span class="icon">
-                                      <i class="fab fa-github"></i>
-                                  </span>
+                                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                                  <span class="icon"><i class="fab fa-github"></i></span>
                                   <span>Code</span>
                                 </a>
                             </span>
-                            <!-- Model Link -->
                             <span class="link-block">
-                                <a href="#"
-                                   class="external-link button is-normal is-rounded is-dark">
-                                  <span class="icon">
-                                      <i class="fas fa-brain"></i>
-                                  </span>
-                                  <span>Model</span>
-                                </a>
-                            </span>
-                            <!-- Dataset Link -->
-                            <span class="link-block">
-                                <a href="#"
-                                   class="external-link button is-normal is-rounded is-dark">
-                                  <span class="icon">
-                                      <i class="fas fa-database"></i>
-                                  </span>
+                                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                                  <span class="icon"><i class="fas fa-database"></i></span>
                                   <span>Dataset</span>
                                 </a>
                             </span>
@@ -165,39 +127,6 @@
 </section>
 
 
-<!-- ==================== MOTIVATION ==================== -->
-<section class="section">
-    <div class="container is-max-desktop">
-        <div class="columns is-centered">
-            <div class="column is-full-width">
-                <h2 class="title is-3" style="text-align: center;">Motivation</h2>
-                <div class="content has-text-justified">
-                    <p>
-                        Existing VLM-based game agents face a critical generalization bottleneck:
-                    </p>
-                    <ul>
-                        <li><b>Model-based methods</b> (e.g., CombatVLA) are deeply optimized for specific games, achieving superhuman performance within their training domain but showing <b>0% cross-type generalization</b>.</li>
-                        <li><b>Framework-based methods</b> (e.g., Cradle) offer modular architectures that are theoretically game-agnostic, but deploying a new game still requires manually crafting detailed prompts and action functions &mdash; a process demanding programming expertise and hours of effort.</li>
-                        <li><b>End-to-end models</b> (e.g., NitroGen) are trained on massive data (40,000 hours) but remain limited to System-1 reactive decision-making and fixed gamepad-only action spaces.</li>
-                    </ul>
-                    <p>
-                        Our key insight is inspired by <b>how human players learn new games</b>: they watch gameplay trailers, read descriptions, study controls, and then begin to play. PlayAnything automates this watch-read-play cognitive paradigm by learning to map multimodal game information to executable agent configurations.
-                    </p>
-                </div>
-
-                <!-- Motivation figure -->
-                <div style="text-align: center; margin: 1.5em 0;">
-                    <img src="./images/Motivation.png" alt="Per-type generalization comparison across four game types" style="max-width: 95%; border-radius: 8px;">
-                    <p style="color: #666; font-size: 0.9em; margin-top: 8px;">
-                        Per-type generalization comparison across four game types. Each panel shows representative games and the <b>Avg. SR</b> of five methods. PlayAnything is the only method that achieves strong performance across all game types, including Coordinate Control where NitroGen fails due to its gamepad-only action space.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
 <!-- ==================== FRAMEWORK OVERVIEW ==================== -->
 <section class="section" style="background-color: #fafafa;">
     <div class="container is-max-desktop">
@@ -205,103 +134,31 @@
             <div class="column is-full-width">
                 <h2 class="title is-3" style="text-align: center;">Framework Overview</h2>
 
-                <!-- Framework figure -->
                 <div style="text-align: center; margin: 1em 0;">
                     <img src="./images/framework_overview.png" alt="PlayAnything Framework Overview" style="max-width: 95%; border-radius: 8px;">
                     <p style="color: #666; font-size: 0.9em; margin-top: 8px;">
-                        Overview of the PlayAnything framework. 1) Gather retrieves multimodal game information and constructs a structured game profile. 2) Adapter, fine-tuned on only 5 training games, transforms the profile into all prompts and action functions required by the Cradle agent framework. 3) Guider then verifies outputs of the Adapter against the original game profile and produces targeted improvement suggestions for human-AI collaborative refinement.
+                        Overview of the PlayAnything framework. Gather retrieves multimodal game information and constructs a structured game profile. Adapter transforms the profile into all prompts and action functions required by the agent framework. Guider verifies outputs against the original game profile and produces targeted improvement suggestions.
                     </p>
                 </div>
 
-                <!-- Module cards -->
                 <div class="module-cards">
                     <div class="module-card">
                         <div class="module-icon">&#x1F50D;</div>
                         <h4>Gather</h4>
-                        <p>Retrieves gameplay videos, screenshots, and strategy texts from external sources (YouTube, Bilibili, Wiki) and constructs structured game profiles via a fully automated pipeline using yt-dlp, Playwright, and Crawl4AI.</p>
+                        <p>Retrieves gameplay videos, screenshots, and strategy texts from external sources and constructs structured game profiles via a fully automated pipeline.</p>
                     </div>
                     <div class="module-card">
                         <div class="module-icon">&#x2699;</div>
                         <h4>Adapter</h4>
-                        <p>Fine-tuned on Qwen3-VL-8B-Instruct with only 5 training games. Transforms multimodal game profiles into structured JSON prompts and Python action functions for the 4 core modules of the Cradle agent framework.</p>
+                        <p>Fine-tuned on Qwen3-VL-8B-Instruct with only 5 training games. Transforms multimodal game profiles into structured JSON prompts and Python action functions.</p>
                     </div>
                     <div class="module-card">
                         <div class="module-icon">&#x1F9ED;</div>
                         <h4>Guider</h4>
-                        <p>Performs cross-reference coverage analysis between Adapter outputs and raw game profiles, identifying information gaps and action space omissions. Outputs structured improvement suggestions for efficient human refinement.</p>
+                        <p>Performs cross-reference coverage analysis between Adapter outputs and raw game profiles. Outputs structured improvement suggestions for efficient human refinement.</p>
                     </div>
                 </div>
 
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<!-- ==================== GAME TAXONOMY ==================== -->
-<section class="section">
-    <div class="container is-max-desktop">
-        <div class="columns is-centered">
-            <div class="column is-full-width">
-                <h2 class="title is-3" style="text-align: center;">Game Benchmark</h2>
-                <div class="content has-text-justified">
-                    <p>
-                        We construct a multimodal game benchmark spanning <b>4 types</b> and <b>45 games</b> (5 train + 40 test), the largest evaluation scale of its kind (4x the scale of NitroGen's 10-game evaluation). Our taxonomy is based on <b>input device + game pace</b>, yielding four mutually exclusive control types:
-                    </p>
-                </div>
-
-                <!-- Game taxonomy sunburst -->
-                <div style="text-align: center; margin: 1em 0;">
-                    <img src="./images/game_taxonomy_sunburst.png" alt="Game Taxonomy Sunburst" style="max-width: 70%; border-radius: 8px;">
-                    <p style="color: #666; font-size: 0.9em; margin-top: 8px;">
-                        Hierarchical taxonomy of the 45-game benchmark across 4 game types.
-                    </p>
-                </div>
-
-                <div style="overflow-x: auto; margin: 1em auto; max-width: 90%;">
-                    <table class="results-table">
-                        <thead>
-                            <tr>
-                                <th>Control Type</th>
-                                <th>#Test</th>
-                                <th>Input</th>
-                                <th>Example Games</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><span class="game-type-tag tag-ic">Interface Control</span></td>
-                                <td>8</td>
-                                <td>Keyboard (grid/board)</td>
-                                <td>2048, Sokoban, Longcat, Isotiles</td>
-                            </tr>
-                            <tr>
-                                <td><span class="game-type-tag tag-ce">Character Exploration</span></td>
-                                <td>12</td>
-                                <td>Keyboard (character)</td>
-                                <td>SPECTRUM, Growmi, Hefty Shaman Deluxe</td>
-                            </tr>
-                            <tr>
-                                <td><span class="game-type-tag tag-ca">Character Action</span></td>
-                                <td>13</td>
-                                <td>Keyboard (fast action)</td>
-                                <td>OvO Classic, Dreadhead Parkour, Red Ball 4</td>
-                            </tr>
-                            <tr>
-                                <td><span class="game-type-tag tag-cc">Coordinate Control</span></td>
-                                <td>7</td>
-                                <td>Mouse click (x,y)</td>
-                                <td>Mr Bullet, Minesweeper, Bubble Storm</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="content has-text-justified">
-                    <p style="margin-top: 1em;">
-                        <b>Training set (5 games):</b> Mowing Mazes (IC), Typing Fighter (IC), Fireboy &amp; Watergirl (CE), Lands of Blight (CA), Bubble Shooter (CC) &mdash; covering all 4 control types with balanced representation.
-                    </p>
-                </div>
             </div>
         </div>
     </div>
@@ -309,7 +166,7 @@
 
 
 <!-- ==================== MAIN RESULTS ==================== -->
-<section class="section" style="background-color: #fafafa;">
+<section class="section">
     <div class="container is-max-desktop">
         <div class="columns is-centered">
             <div class="column is-full-width">
@@ -321,7 +178,6 @@
                     </p>
                 </div>
 
-                <!-- Overall results table -->
                 <h3 class="title is-4" style="text-align: center;">Overall Performance on 40 Unseen Games</h3>
                 <div style="overflow-x: auto; margin: 1em auto; max-width: 90%;">
                     <table class="results-table">
@@ -383,13 +239,10 @@
                 <div class="content has-text-justified" style="margin-top: 1.5em;">
                     <p><b>Key Findings:</b></p>
                     <ol>
-                        <li><b>PlayAnything overcomes the zero-generalization barrier.</b> Both Cradle and CombatVLA achieve 0% Runnability (SR<sub>1</sub>), while Ours achieves 100% across all 40 test games by automatically generating valid action spaces and prompt structures.</li>
-                        <li><b>Significant advantage with minimal training data.</b> Trained on only 5 games, Ours improves the Avg. SR from 42.0% (NitroGen, 40K hours training) to 58.0%, outperforming the large-scale foundation model with orders-of-magnitude less training data.</li>
-                        <li><b>Guider-directed refinement is efficient and effective.</b> With a median of only 136 character edits, Ours (Refined) pushes SR<sub>2</sub> to 92.0% and achieves an Avg. SR of 67.5%.</li>
+                        <li><b>PlayAnything overcomes the zero-generalization barrier.</b> Both Cradle and CombatVLA achieve 0% Runnability, while Ours achieves 100% across all 40 test games.</li>
+                        <li><b>Significant advantage with minimal training data.</b> Trained on only 5 games, Ours improves the Avg. SR from 42.0% (NitroGen, 40K hours) to 58.0%.</li>
+                        <li><b>Guider-directed refinement is efficient and effective.</b> With a median of only 136 character edits, Ours (Refined) pushes SR<sub>2</sub> to 92.0% and Avg. SR to 67.5%.</li>
                     </ol>
-                    <p>
-                        Statistical rigor: Wilcoxon signed-rank tests yield p=1.04&times;10<sup>-6</sup> (Ours > NitroGen) and p=1.19&times;10<sup>-7</sup> (Ours (Refined) > NitroGen), with non-overlapping 95% confidence intervals.
-                    </p>
                 </div>
             </div>
         </div>
@@ -398,7 +251,7 @@
 
 
 <!-- ==================== CATEGORY-LEVEL RESULTS ==================== -->
-<section class="section">
+<section class="section" style="background-color: #fafafa;">
     <div class="container is-max-desktop">
         <div class="columns is-centered">
             <div class="column is-full-width">
@@ -415,178 +268,49 @@
                                 <th>SR<sub>3</sub></th>
                                 <th>SR<sub>4</sub></th>
                                 <th>Avg. SR (%)</th>
-                                <th>Edit Dist.</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- IC -->
-                            <tr><td rowspan="3"><span class="game-type-tag tag-ic">Interface Control (8)</span></td>
-                                <td>NitroGen</td><td>100.0</td><td>59.0</td><td>18.0</td><td>2.0</td><td>44.8</td><td>&mdash;</td></tr>
-                            <tr class="ours"><td>Ours</td><td>100.0</td><td>77.0</td><td>38.0</td><td>6.0</td><td>55.3</td><td>&mdash;</td></tr>
-                            <tr class="ours-refined"><td>Ours (Refined)</td><td><b>100.0</b></td><td><b>90.0</b></td><td><b>49.0</b></td><td><b>15.0</b></td><td><b>63.5</b></td><td>197</td></tr>
-                            <!-- CE -->
-                            <tr><td rowspan="3"><span class="game-type-tag tag-ce">Char. Exploration (12)</span></td>
-                                <td>NitroGen</td><td>100.0</td><td>50.0</td><td>14.0</td><td>5.0</td><td>42.3</td><td>&mdash;</td></tr>
-                            <tr class="ours"><td>Ours</td><td>100.0</td><td>87.0</td><td>38.0</td><td>8.0</td><td>58.3</td><td>&mdash;</td></tr>
-                            <tr class="ours-refined"><td>Ours (Refined)</td><td><b>100.0</b></td><td><b>91.0</b></td><td><b>44.0</b></td><td><b>16.0</b></td><td><b>62.8</b></td><td>132</td></tr>
-                            <!-- CA -->
-                            <tr><td rowspan="3"><span class="game-type-tag tag-ca">Char. Action (13)</span></td>
-                                <td>NitroGen</td><td>100.0</td><td>66.0</td><td>25.0</td><td>5.0</td><td>49.0</td><td>&mdash;</td></tr>
-                            <tr class="ours"><td>Ours</td><td>100.0</td><td>91.0</td><td>53.0</td><td>17.0</td><td>65.3</td><td>&mdash;</td></tr>
-                            <tr class="ours-refined"><td>Ours (Refined)</td><td><b>100.0</b></td><td><b>99.0</b></td><td><b>68.0</b></td><td><b>32.0</b></td><td><b>74.8</b></td><td>204</td></tr>
-                            <!-- CC -->
-                            <tr><td rowspan="3"><span class="game-type-tag tag-cc">Coord. Control (7)</span></td>
-                                <td>NitroGen</td><td>100.0</td><td>3.0</td><td>0.0</td><td>0.0</td><td>25.8</td><td>&mdash;</td></tr>
-                            <tr class="ours"><td>Ours</td><td>100.0</td><td>59.0</td><td>23.0</td><td>7.0</td><td>47.3</td><td>&mdash;</td></tr>
-                            <tr class="ours-refined"><td>Ours (Refined)</td><td><b>100.0</b></td><td><b>81.0</b></td><td><b>60.0</b></td><td><b>29.0</b></td><td><b>67.5</b></td><td>134</td></tr>
+                            <tr><td rowspan="3">Interface Control (8)</td>
+                                <td>NitroGen</td><td>100.0</td><td>59.0</td><td>18.0</td><td>2.0</td><td>44.8</td></tr>
+                            <tr class="ours"><td>Ours</td><td>100.0</td><td>77.0</td><td>38.0</td><td>6.0</td><td>55.3</td></tr>
+                            <tr class="ours-refined"><td>Ours (Refined)</td><td><b>100.0</b></td><td><b>90.0</b></td><td><b>49.0</b></td><td><b>15.0</b></td><td><b>63.5</b></td></tr>
+
+                            <tr><td rowspan="3">Char. Exploration (12)</td>
+                                <td>NitroGen</td><td>100.0</td><td>50.0</td><td>14.0</td><td>5.0</td><td>42.3</td></tr>
+                            <tr class="ours"><td>Ours</td><td>100.0</td><td>87.0</td><td>38.0</td><td>8.0</td><td>58.3</td></tr>
+                            <tr class="ours-refined"><td>Ours (Refined)</td><td><b>100.0</b></td><td><b>91.0</b></td><td><b>44.0</b></td><td><b>16.0</b></td><td><b>62.8</b></td></tr>
+
+                            <tr><td rowspan="3">Char. Action (13)</td>
+                                <td>NitroGen</td><td>100.0</td><td>66.0</td><td>25.0</td><td>5.0</td><td>49.0</td></tr>
+                            <tr class="ours"><td>Ours</td><td>100.0</td><td>91.0</td><td>53.0</td><td>17.0</td><td>65.3</td></tr>
+                            <tr class="ours-refined"><td>Ours (Refined)</td><td><b>100.0</b></td><td><b>99.0</b></td><td><b>68.0</b></td><td><b>32.0</b></td><td><b>74.8</b></td></tr>
+
+                            <tr><td rowspan="3">Coord. Control (7)</td>
+                                <td>NitroGen</td><td>100.0</td><td>3.0</td><td>0.0</td><td>0.0</td><td>25.8</td></tr>
+                            <tr class="ours"><td>Ours</td><td>100.0</td><td>59.0</td><td>23.0</td><td>7.0</td><td>47.3</td></tr>
+                            <tr class="ours-refined"><td>Ours (Refined)</td><td><b>100.0</b></td><td><b>81.0</b></td><td><b>60.0</b></td><td><b>29.0</b></td><td><b>67.5</b></td></tr>
                         </tbody>
                     </table>
                 </div>
-
-                <div class="content has-text-justified" style="margin-top: 1em;">
-                    <p>
-                        <b>Character Action</b> achieves the best automated results (SR<sub>2</sub> = 91%) due to regular action spaces.
-                        <b>Coordinate Control</b> benefits most from refinement and highlights the most dramatic baseline failure: NitroGen achieves only 3% SR<sub>2</sub> due to its gamepad-only action space, while PlayAnything adaptively grounds interaction logic in visual coordinates.
-                    </p>
-                </div>
             </div>
         </div>
     </div>
 </section>
 
 
-<!-- ==================== ABLATION STUDIES ==================== -->
-<section class="section" style="background-color: #fafafa;">
-    <div class="container is-max-desktop">
-        <div class="columns is-centered">
-            <div class="column is-full-width">
-                <h2 class="title is-3" style="text-align: center;">Ablation Studies</h2>
-
-                <div class="columns is-margin" style="margin-top: 1.5em;">
-
-                    <!-- Ablation 1: Training Scale -->
-                    <div class="column">
-                        <h4 class="title is-5" style="text-align: center; margin-left: 0;">Training Data Scale</h4>
-                        <div style="text-align: center; margin-bottom: 1em;">
-                            <img src="./images/trainset_size_ablation.png" alt="Training set size ablation" style="max-width: 90%; border-radius: 8px;">
-                        </div>
-                        <div style="overflow-x: auto;">
-                            <table class="results-table" style="font-size: 0.85em;">
-                                <thead>
-                                    <tr><th># Train</th><th>SR<sub>1</sub></th><th>SR<sub>2</sub></th><th>SR<sub>3</sub></th><th>SR<sub>4</sub></th><th>Avg. SR</th></tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="ours"><td><b>5</b></td><td><b>100</b></td><td>80</td><td>34</td><td><b>18</b></td><td><b>58%</b></td></tr>
-                                    <tr><td>10</td><td>100</td><td>78</td><td><b>38</b></td><td>16</td><td>58%</td></tr>
-                                    <tr><td>15</td><td>100</td><td>73</td><td>35</td><td>15</td><td>56%</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <p style="font-size: 0.85em; color: #666; text-align: center; margin-top: 8px;">
-                            Balanced type coverage matters more than raw data volume. Performance plateaus at 5 games and degrades at 15 due to imbalanced distribution.
-                        </p>
-                    </div>
-
-                    <!-- Ablation 2: Adapter Design -->
-                    <div class="column">
-                        <h4 class="title is-5" style="text-align: center; margin-left: 0;">Adapter Design Space</h4>
-                        <div style="overflow-x: auto;">
-                            <table class="results-table" style="font-size: 0.85em;">
-                                <thead>
-                                    <tr><th>Configuration</th><th>Avg. SR (%)</th></tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="ours"><td><b>Qwen3-VL-8B Cross (FT)</b></td><td><b>57.8</b></td></tr>
-                                    <tr><td>GPT-4o 3-shot ICL (Cross)</td><td>49.8</td></tr>
-                                    <tr><td>GPT-5 3-shot ICL (Cross)</td><td>48.3</td></tr>
-                                    <tr><td>Qwen3-VL-8B CE-only (FT)</td><td>45.5</td></tr>
-                                    <tr><td>Qwen2.5-VL-7B Cross (FT)</td><td>44.3</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <p style="font-size: 0.85em; color: #666; text-align: center; margin-top: 8px;">
-                            Fine-tuned 8B VLM outperforms GPT-4o and GPT-5 ICL baselines. GPT-5 suffers from "over-thinking" with excessive edge-case handling.
-                        </p>
-                    </div>
-
-                </div>
-
-                <!-- Adapter Radar -->
-                <div style="text-align: center; margin: 2em 0 1em 0;">
-                    <img src="./images/adapter_type_radar.png" alt="Adapter performance radar maps" style="max-width: 95%; border-radius: 8px;">
-                    <p style="color: #666; font-size: 0.9em; margin-top: 8px;">
-                        Performance radar maps of 10 system configurations across four game types (IC, CE, CA, CC). Fine-tuned open-source models demonstrate superior, balanced generalization compared to proprietary ICL baselines.
-                    </p>
-                </div>
-
-                <!-- Plasticity -->
-                <div style="margin-top: 2em;">
-                    <h4 class="title is-4" style="text-align: center;">Plasticity Analysis</h4>
-                    <div class="content has-text-justified">
-                        <p>
-                            Across 40 test games, the median Edit Distance is only <b>136 characters</b> (min=30, max=453). The Pearson correlation between edit magnitude and performance gain is <b>r=0.007 (p=0.965)</b>, demonstrating that <b>edit direction matters far more than edit magnitude</b>. For example, the smallest refinement (Stickman Parkour 2: 30 chars) yields significant gains, while the most extensive modification (Maze: Path of Light: 453 chars) contributes only marginal improvement.
-                        </p>
-                    </div>
-                    <div style="text-align: center; margin: 1em 0;">
-                        <img src="./images/plasticity_scatter.png" alt="Edit distance vs performance gain scatter plot" style="max-width: 60%; border-radius: 8px;">
-                        <p style="color: #666; font-size: 0.9em; margin-top: 8px;">
-                            Scatter plot of edit distance vs. performance gain across 40 test games. The near-zero correlation (r=0.007) confirms that precision of edits matters far more than their magnitude.
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<!-- ==================== QUALITATIVE ANALYSIS ==================== -->
+<!-- ==================== CONCLUSION ==================== -->
 <section class="section">
     <div class="container is-max-desktop">
         <div class="columns is-centered">
             <div class="column is-full-width">
-                <h2 class="title is-3" style="text-align: center;">Qualitative Analysis: Guider-Directed Refinement</h2>
-
-                <!-- Prompt comparison figure -->
-                <div style="text-align: center; margin: 1em 0;">
-                    <img src="./images/prompt_comparison.png" alt="Qualitative comparison of Guider-directed refinement" style="max-width: 95%; border-radius: 8px;">
-                    <p style="color: #666; font-size: 0.9em; margin-top: 8px;">
-                        Qualitative comparison of Guider-directed refinement on two diverse games. "Chars" denotes the Levenshtein edit distance between the unedited and refined prompts.
-                    </p>
-                </div>
-
+                <h2 class="title is-3" style="text-align: center;">Conclusion</h2>
                 <div class="content has-text-justified">
-                    <p>
-                        The Guider identifies targeted improvement opportunities, enabling two distinct refinement modes:
-                    </p>
-                </div>
-
-                <div class="columns is-margin" style="margin-top: 1em;">
-                    <div class="column">
-                        <div class="module-card" style="width: 100%;">
-                            <h4>Correcting Factual Misconceptions</h4>
-                            <p style="text-align: left;">
-                                <b>Game:</b> Hefty Shaman Deluxe (Character Exploration)<br>
-                                <b>Issue:</b> Adapter assumed stones could be pushed via <code>move_right()</code><br>
-                                <b>Guider fix:</b> "Stones are immovable obstacles; contact causes the shaman to get stuck"<br>
-                                <b>Edit:</b> 76 characters<br>
-                                <b>Result:</b> Avg. SR 42.5% &rarr; 72.5% (+30%)
-                            </p>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="module-card" style="width: 100%;">
-                            <h4>Elevating Strategy Depth</h4>
-                            <p style="text-align: left;">
-                                <b>Game:</b> Longcat (Interface Control)<br>
-                                <b>Issue:</b> Adapter produced vague positional heuristics<br>
-                                <b>Guider fix:</b> Recognized underlying Hamiltonian path structure; suggested dead-end avoidance and connectivity maintenance<br>
-                                <b>Edit:</b> 244 characters<br>
-                                <b>Result:</b> Avg. SR 45.0% &rarr; 60.0% (+15%)
-                            </p>
-                        </div>
-                    </div>
+                    <ol>
+                        <li><b>Multimodal adaptation enables effective generalization with minimal data.</b> Learning prompt generation from just 5 games allows PlayAnything to generalize across 40 unseen titles. This proves structured adaptation is a highly efficient alternative to massive pre-training, eliminating the need for per-game manual engineering.</li>
+                        <li><b>A new large-scale benchmark validates cross-type robustness.</b> We contribute a 45-game benchmark across four types&mdash;4x the scale of prior state-of-the-art evaluations. Results demonstrate PlayAnything's robustness even in challenging scenarios like coordinate-based control, where fixed action-space models fail.</li>
+                        <li><b>Collaborative refinement empowers non-experts.</b> Our human-AI pipeline achieves a 67.5% success rate with a median of just 136 character edits. This drastically lowers the barrier to deploying and optimizing sophisticated VLM agents for any new game.</li>
+                    </ol>
                 </div>
             </div>
         </div>
@@ -594,7 +318,7 @@
 </section>
 
 
-<!-- ==================== DEMO (placeholder) ==================== -->
+<!-- ==================== DEMO ==================== -->
 <section class="section" style="background-color: #fafafa;">
     <div class="container is-max-desktop">
         <div class="columns is-centered">
@@ -602,75 +326,6 @@
                 <h2 class="title is-3" style="text-align: center;">Demo</h2>
                 <div class="demo-placeholder">
                     Demo videos coming soon.
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<!-- ==================== FULL GAME LIST ==================== -->
-<section class="section">
-    <div class="container is-max-desktop">
-        <div class="columns is-centered">
-            <div class="column is-full-width">
-                <h2 class="title is-3" style="text-align: center;">45-Game Benchmark</h2>
-
-                <h4 class="title is-5" style="text-align: center; margin-left: 0;">Training Games (5)</h4>
-                <div class="game-grid">
-                    <div class="game-grid-item"><span class="game-type-tag tag-ic">IC</span> Mowing Mazes</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ic">IC</span> Typing Fighter</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ce">CE</span> Fireboy &amp; Watergirl</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ca">CA</span> Lands of Blight</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-cc">CC</span> Bubble Shooter</div>
-                </div>
-
-                <h4 class="title is-5" style="text-align: center; margin-left: 0; margin-top: 1.5em;">Test Games (40)</h4>
-                <div class="game-grid">
-                    <!-- IC -->
-                    <div class="game-grid-item"><span class="game-type-tag tag-ic">IC</span> 2048</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ic">IC</span> Isotiles</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ic">IC</span> Just Slide</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ic">IC</span> Lava and Aqua</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ic">IC</span> Longcat</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ic">IC</span> Maze: Path of Light</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ic">IC</span> Moving Blocks</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ic">IC</span> Sokoban</div>
-                    <!-- CE -->
-                    <div class="game-grid-item"><span class="game-type-tag tag-ce">CE</span> A Grim Love Tale</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ce">CE</span> circloO XL</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ce">CE</span> Gobble</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ce">CE</span> Growmi</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ce">CE</span> Hefty Shaman Deluxe</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ce">CE</span> Jump and Hover</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ce">CE</span> Plactions</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ce">CE</span> Platform Countdown</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ce">CE</span> Portal Pusher</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ce">CE</span> SPECTRUM</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ce">CE</span> Sides of Gravity</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ce">CE</span> Upwarp</div>
-                    <!-- CA -->
-                    <div class="game-grid-item"><span class="game-type-tag tag-ca">CA</span> A Grim Granny</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ca">CA</span> BUMPY JUMPY</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ca">CA</span> Dreadhead Parkour</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ca">CA</span> Goober World</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ca">CA</span> Headcase</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ca">CA</span> Monster Tracks</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ca">CA</span> OvO Classic</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ca">CA</span> OvO Dimensions</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ca">CA</span> Red Ball 4</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ca">CA</span> Right Jump</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ca">CA</span> Stickman Maze Run</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ca">CA</span> Stickman Parkour 2: Lucky Block</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-ca">CA</span> Stickman Parkour 3</div>
-                    <!-- CC -->
-                    <div class="game-grid-item"><span class="game-type-tag tag-cc">CC</span> Blue</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-cc">CC</span> Bubble Storm</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-cc">CC</span> Circus Contest</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-cc">CC</span> Energy</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-cc">CC</span> Minesweeper</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-cc">CC</span> Mr Bullet</div>
-                    <div class="game-grid-item"><span class="game-type-tag tag-cc">CC</span> UnpuzzleR</div>
                 </div>
             </div>
         </div>
