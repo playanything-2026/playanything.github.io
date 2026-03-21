@@ -42,10 +42,6 @@
                         <span class="author-block">Anonymous Authors</span>
                     </div>
 
-                    <div class="is-size-5 publication-authors">
-                        <span class="publication-venue">ACM Multimedia 2026 (Under Review)</span>
-                    </div>
-
                     <div class="column has-text-centered">
                         <div class="publication-links">
                             <span class="link-block">
@@ -69,31 +65,12 @@
     </div>
 </section>
 
-<!-- ==================== KEY STATS ==================== -->
+<!-- ==================== DEMO ==================== -->
 <section class="hero is-light is-small">
     <div class="hero-body">
-        <div class="container">
-            <div class="stats-row">
-                <div class="stat-item">
-                    <div class="stat-number">5</div>
-                    <div class="stat-label">Training Games</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">40</div>
-                    <div class="stat-label">Unseen Test Games</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">4</div>
-                    <div class="stat-label">Game Types</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">67.5%</div>
-                    <div class="stat-label">Avg. Success Rate (Refined)</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">136</div>
-                    <div class="stat-label">Median Edit Distance (chars)</div>
-                </div>
+        <div class="container is-max-desktop">
+            <div class="demo-placeholder">
+                Demo videos coming soon.
             </div>
         </div>
     </div>
@@ -108,17 +85,13 @@
                 <h2 class="title is-3">Abstract</h2>
                 <div class="content has-text-justified">
                     <p>
-                        Vision-language model (VLM) driven game agents have shown strong performance in specific games, yet existing frameworks require extensive manual crafting of game-specific prompts and action functions. This reliance results in near-zero cross-game generalization.
-                        Therefore, we propose <b>PlayAnything</b>, a plug-and-play multimodal prompt adaptation framework that enables VLM agents to generalize to diverse, unseen games. By combining automatic prompt generation with guided non-expert refinement, PlayAnything reduces deployment effort from hours of expert programming to a streamlined human-AI collaborative pipeline.
+                        Vision-language model (VLM) driven game agents have shown strong performance in specific games, yet existing frameworks require extensive manual crafting of game-specific prompts and action functions. This reliance results in near-zero cross-game generalization. Therefore, we propose <b>PlayAnything</b>, a plug-and-play multimodal prompt adaptation framework that enables VLM agents to generalize to diverse, unseen games. By combining automatic prompt generation with guided non-expert refinement, PlayAnything reduces deployment effort from hours of expert programming to a streamlined human-AI collaborative pipeline.
                     </p>
                     <p>
-                        Specifically, PlayAnything consists of three complementary modules:
-                        i) <b>Gather</b>, a multimodal retriever that constructs structured game profiles from gameplay videos, screenshots, and strategy texts;
-                        ii) <b>Adapter</b>, a core module fine-tuned on Qwen3-VL-8B that transforms these profiles into executable prompts and action functions; and
-                        iii) <b>Guider</b>, a post-generation verification module that cross-references outputs with raw profiles to provide targeted improvement suggestions for human users.
+                        Specifically, PlayAnything consists of three complementary modules: i) <b>Gather</b>, a multimodal retriever that constructs structured game profiles from gameplay videos, screenshots, and strategy texts; ii) <b>Adapter</b>, a core module fine-tuned on Qwen3-VL-8B that transforms these profiles into executable prompts and action functions; and iii) <b>Guider</b>, a post-generation verification module that cross-references outputs with raw profiles to provide targeted improvement suggestions for human users.
                     </p>
                     <p>
-                        Experiments demonstrate that PlayAnything, trained on only 5 games, achieves 100% runnability and an average success rate of 58% across 40 unseen games. This drastically outperforms existing baselines&mdash;where Cradle and CombatVLA score 0%, and the massive NitroGen reaches only 42%&mdash;achieving superior generalization with orders-of-magnitude less training data (5 games vs. 40,000 hours). Furthermore, with Guider-directed refinement requiring a median of only 136 character edits, the average success rate further rises to 67.5%, peaking at 92% on Level 2 tasks.
+                        Experiments demonstrate that PlayAnything, trained on only 5 games, achieves 100% runnability and an average success rate of 58% across 40 unseen games. This drastically outperforms existing baselines&mdash;where Cradle and CombatVLA score 0%, and the massive NitroGen reaches only 42%&mdash;achieving superior generalization with orders-of-magnitude less training data (5 games vs. 40,000 hours). Furthermore, with Guider-directed refinement requiring a median of only 136 character edits, the average success rate further rises to 67.5%, peaking at 92% on Level 2 tasks. We will open-source all resources.
                     </p>
                 </div>
             </div>
@@ -137,7 +110,7 @@
                 <div style="text-align: center; margin: 1em 0;">
                     <img src="./images/framework_overview.png" alt="PlayAnything Framework Overview" style="max-width: 95%; border-radius: 8px;">
                     <p style="color: #666; font-size: 0.9em; margin-top: 8px;">
-                        Overview of the PlayAnything framework. Gather retrieves multimodal game information and constructs a structured game profile. Adapter transforms the profile into all prompts and action functions required by the agent framework. Guider verifies outputs against the original game profile and produces targeted improvement suggestions.
+                        Overview of the PlayAnything framework. 1) Gather retrieves multimodal game information and constructs a structured game profile. 2) Adapter, fine-tuned on only 5 training games, transforms the profile into all prompts and action functions required by the Cradle agent framework. 3) Guider then verifies outputs of the Adapter against the original game profile and produces targeted improvement suggestions for human-AI collaborative refinement.
                     </p>
                 </div>
 
@@ -174,11 +147,10 @@
 
                 <div class="content has-text-justified">
                     <p>
-                        We evaluate PlayAnything on 40 unseen games, each independently run 10 times. SR<sub>1</sub> to SR<sub>4</sub> denote the success rates of progressively harder levels, while <b>Avg. SR</b> represents the mean success rate across all four levels.
+                        Overall results on 40 unseen games. SR<sub>1</sub> to SR<sub>4</sub> denote the success rates of progressively harder levels, while <b>Avg. SR</b> represents the mean success rate across all four levels.
                     </p>
                 </div>
 
-                <h3 class="title is-4" style="text-align: center;">Overall Performance on 40 Unseen Games</h3>
                 <div style="overflow-x: auto; margin: 1em auto; max-width: 90%;">
                     <table class="results-table">
                         <thead>
@@ -237,11 +209,10 @@
                 </div>
 
                 <div class="content has-text-justified" style="margin-top: 1.5em;">
-                    <p><b>Key Findings:</b></p>
                     <ol>
-                        <li><b>PlayAnything overcomes the zero-generalization barrier.</b> Both Cradle and CombatVLA achieve 0% Runnability, while Ours achieves 100% across all 40 test games.</li>
-                        <li><b>Significant advantage with minimal training data.</b> Trained on only 5 games, Ours improves the Avg. SR from 42.0% (NitroGen, 40K hours) to 58.0%.</li>
-                        <li><b>Guider-directed refinement is efficient and effective.</b> With a median of only 136 character edits, Ours (Refined) pushes SR<sub>2</sub> to 92.0% and Avg. SR to 67.5%.</li>
+                        <li><b>PlayAnything overcomes the zero-generalization barrier.</b> Both Cradle and CombatVLA achieve 0% Runnability (SR<sub>1</sub>), confirming that existing modular frameworks and specialized VLAs fail to launch unseen games or transfer skills across types. In contrast, Ours achieves 100% Runnability across all 40 test games by automatically generating valid action spaces and prompt structures.</li>
+                        <li><b>Our Adapter outperforms large-scale foundation models with a fraction of the data.</b> Compared to NitroGen (pre-trained on 40,000 hours of gameplay), Ours (trained on only 5 games) elevates the overall average success rate from 42.0% to 58.0%. This advantage is most pronounced in Coordinate Control games, where NitroGen collapses to near 25% due to its rigid gamepad primitives, whereas PlayAnything adaptively grounds interaction logic in visual coordinates.</li>
+                        <li><b>Guider-directed refinement unlocks peak performance with minimal human effort.</b> With lightweight strategic intervention (median Edit Distance of only 136 characters), Ours (Refined) further pushes the Level 2 success rate to 92.0% and the overall average to 67.5%. These results confirm that our framework effectively shifts the human role from redundant programming to high-level strategic correction.</li>
                     </ol>
                 </div>
             </div>
@@ -271,23 +242,27 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td rowspan="3">Interface Control (8)</td>
-                                <td>NitroGen</td><td>100.0</td><td>59.0</td><td>18.0</td><td>2.0</td><td>44.8</td></tr>
+                            <tr><td rowspan="4">Interface Control (8)</td>
+                                <td>Cradle & CombatVLA</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+                            <tr><td>NitroGen</td><td>100.0</td><td>59.0</td><td>18.0</td><td>2.0</td><td>44.8</td></tr>
                             <tr class="ours"><td>Ours</td><td>100.0</td><td>77.0</td><td>38.0</td><td>6.0</td><td>55.3</td></tr>
                             <tr class="ours-refined"><td>Ours (Refined)</td><td><b>100.0</b></td><td><b>90.0</b></td><td><b>49.0</b></td><td><b>15.0</b></td><td><b>63.5</b></td></tr>
 
-                            <tr><td rowspan="3">Char. Exploration (12)</td>
-                                <td>NitroGen</td><td>100.0</td><td>50.0</td><td>14.0</td><td>5.0</td><td>42.3</td></tr>
+                            <tr><td rowspan="4">Char. Exploration (12)</td>
+                                <td>Cradle & CombatVLA</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+                            <tr><td>NitroGen</td><td>100.0</td><td>50.0</td><td>14.0</td><td>5.0</td><td>42.3</td></tr>
                             <tr class="ours"><td>Ours</td><td>100.0</td><td>87.0</td><td>38.0</td><td>8.0</td><td>58.3</td></tr>
                             <tr class="ours-refined"><td>Ours (Refined)</td><td><b>100.0</b></td><td><b>91.0</b></td><td><b>44.0</b></td><td><b>16.0</b></td><td><b>62.8</b></td></tr>
 
-                            <tr><td rowspan="3">Char. Action (13)</td>
-                                <td>NitroGen</td><td>100.0</td><td>66.0</td><td>25.0</td><td>5.0</td><td>49.0</td></tr>
+                            <tr><td rowspan="4">Char. Action (13)</td>
+                                <td>Cradle & CombatVLA</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+                            <tr><td>NitroGen</td><td>100.0</td><td>66.0</td><td>25.0</td><td>5.0</td><td>49.0</td></tr>
                             <tr class="ours"><td>Ours</td><td>100.0</td><td>91.0</td><td>53.0</td><td>17.0</td><td>65.3</td></tr>
                             <tr class="ours-refined"><td>Ours (Refined)</td><td><b>100.0</b></td><td><b>99.0</b></td><td><b>68.0</b></td><td><b>32.0</b></td><td><b>74.8</b></td></tr>
 
-                            <tr><td rowspan="3">Coord. Control (7)</td>
-                                <td>NitroGen</td><td>100.0</td><td>3.0</td><td>0.0</td><td>0.0</td><td>25.8</td></tr>
+                            <tr><td rowspan="4">Coord. Control (7)</td>
+                                <td>Cradle & CombatVLA</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+                            <tr><td>NitroGen</td><td>100.0</td><td>3.0</td><td>0.0</td><td>0.0</td><td>25.8</td></tr>
                             <tr class="ours"><td>Ours</td><td>100.0</td><td>59.0</td><td>23.0</td><td>7.0</td><td>47.3</td></tr>
                             <tr class="ours-refined"><td>Ours (Refined)</td><td><b>100.0</b></td><td><b>81.0</b></td><td><b>60.0</b></td><td><b>29.0</b></td><td><b>67.5</b></td></tr>
                         </tbody>
@@ -308,8 +283,8 @@
                 <div class="content has-text-justified">
                     <ol>
                         <li><b>Multimodal adaptation enables effective generalization with minimal data.</b> Learning prompt generation from just 5 games allows PlayAnything to generalize across 40 unseen titles. This proves structured adaptation is a highly efficient alternative to massive pre-training, eliminating the need for per-game manual engineering.</li>
-                        <li><b>A new large-scale benchmark validates cross-type robustness.</b> We contribute a 45-game benchmark across four types&mdash;4x the scale of prior state-of-the-art evaluations. Results demonstrate PlayAnything's robustness even in challenging scenarios like coordinate-based control, where fixed action-space models fail.</li>
-                        <li><b>Collaborative refinement empowers non-experts.</b> Our human-AI pipeline achieves a 67.5% success rate with a median of just 136 character edits. This drastically lowers the barrier to deploying and optimizing sophisticated VLM agents for any new game.</li>
+                        <li><b>A new large-scale benchmark validates cross-type robustness.</b> We contribute a 45-game benchmark across four types&mdash;4&times; the scale of prior state-of-the-art evaluations. Results demonstrate PlayAnything's robustness even in challenging scenarios like coordinate-based control, where fixed action-space models fail.</li>
+                        <li><b>Collaborative refinement empowers non-experts.</b> Our human-AI pipeline achieves a 67.5% success rate with a median of just 136 character edits. Coupled with our commitment to open-sourcing all resources, this drastically lowers the barrier to deploying and optimizing sophisticated VLM agents for any new game.</li>
                     </ol>
                 </div>
             </div>
@@ -318,23 +293,8 @@
 </section>
 
 
-<!-- ==================== DEMO ==================== -->
-<section class="section" style="background-color: #fafafa;">
-    <div class="container is-max-desktop">
-        <div class="columns is-centered">
-            <div class="column is-full-width">
-                <h2 class="title is-3" style="text-align: center;">Demo</h2>
-                <div class="demo-placeholder">
-                    Demo videos coming soon.
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
 <!-- ==================== BIBTEX ==================== -->
-<section class="section" id="BibTeX">
+<section class="section" id="BibTeX" style="background-color: #fafafa;">
     <div class="container is-max-desktop content">
         <h2 style="text-align: center;">BibTeX</h2>
         <pre><code>@inproceedings{liu2026playanything,
